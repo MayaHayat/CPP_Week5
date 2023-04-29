@@ -15,6 +15,8 @@ class Fraction{
 
     public:
 
+    Fraction();
+
     Fraction(int numerator, int denominator);
 
     Fraction(float number);
@@ -28,15 +30,15 @@ class Fraction{
     
     // ----------------- Requested functions ---------------------
 
-    Fraction operator+(Fraction& other) const;
+    Fraction operator+(const Fraction& other) const;
 
-    float operator+(float num);
+    Fraction operator+(float num);
 
     friend Fraction operator+(float num, const Fraction &frac);
 
     friend Fraction operator+(const Fraction &frac, float num);
 
-    Fraction operator-(Fraction& other);
+    Fraction operator-(const Fraction& other);
 
     float operator-(float num);
 
@@ -44,13 +46,16 @@ class Fraction{
 
     friend Fraction operator-(const Fraction &frac, float num);
 
-    Fraction operator*(Fraction& other);
+    Fraction operator*(const Fraction& other);
 
     float operator*(float num);
+    //Fraction operator*(float num);
     
     friend Fraction operator*(float num, const Fraction &frac);
     
-    Fraction operator/( Fraction& other);
+    friend Fraction operator*(const Fraction &frac, float num);
+
+    Fraction operator/(const Fraction& other);
 
     float operator/(float num);
     
@@ -60,8 +65,9 @@ class Fraction{
 
 
     bool operator==(const Fraction& other) const;
+
+    bool operator==(const float& num) const;
     
-    bool operator!=(const Fraction& other) const;
 
     bool operator<(const Fraction& other) const;
 
@@ -97,7 +103,7 @@ class Fraction{
     
     friend std::ostream& operator<<(std::ostream& out, const Fraction& fraction);
     
-    friend std::istream& operator>>(std::istream& in, Fraction& fraction);
+    friend std::istream& operator>>(std::istream& inpt, Fraction& fraction);
 
 
     // -------------------- Help Function ---------------------------

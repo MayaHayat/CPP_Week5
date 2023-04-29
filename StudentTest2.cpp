@@ -50,6 +50,7 @@ TEST_SUITE("Overloaded == operator tests") {
         Fraction frac1(11, 13);
         Fraction frac2(11, 15);
         Fraction frac3(12, 13);
+        bool ans = (frac1 != frac2); 
         CHECK_NE(frac1, frac2);
         CHECK_NE(frac1, frac3);
     }
@@ -382,6 +383,7 @@ TEST_SUITE("Overloaded * operator tests") {
         CHECK_EQ(0.5 * Fraction{2, 3}, Fraction{1, 3});
 
         //From right
+
         CHECK_EQ(Fraction{3, 4} * 0.8, Fraction{3, 5});
         CHECK_EQ(0.8 * Fraction{3, 4}, Fraction{3, 5});
 
@@ -671,15 +673,19 @@ TEST_SUITE("Input and output operators tests") {
     }
 
     TEST_CASE("Chaining input and output operators") {
+
         std::stringstream ss_in("1 2 3 -4");
         Fraction frac1, frac2;
         ss_in >> frac1 >> frac2;
+
         CHECK_EQ(frac1, Fraction{1, 2});
+
         CHECK_EQ(frac2, Fraction{3, -4});
 
         std::stringstream ss_out;
         ss_out << frac1 << " and " << frac2;
         CHECK(ss_out.str() == "1/2 and -3/4");
+
     }
 
     TEST_CASE(">> operator with zero denominator") {
@@ -730,7 +736,6 @@ TEST_CASE("Fraction with largest possible numerator and/or denominator and overf
 
     // Test arithmetic with large numerator and/or denominator
     Fraction f4(max_int - 100, max_int);
-
     CHECK_THROWS_AS(f1 * f4, std::overflow_error);
     CHECK_THROWS_AS(f1 / f4, std::overflow_error);
 
