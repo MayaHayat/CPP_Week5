@@ -6,7 +6,7 @@
 using namespace std;
 
 
-namespace ariel {
+namespace ariel {}
 class Fraction{
 
     private: 
@@ -113,9 +113,6 @@ class Fraction{
     void reduce();
 
 
-};
-
-    
 };
 
 #endif
