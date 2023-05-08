@@ -50,7 +50,6 @@ TEST_SUITE("Overloaded == operator tests") {
         Fraction frac1(11, 13);
         Fraction frac2(11, 15);
         Fraction frac3(12, 13);
-        bool ans = (frac1 != frac2); 
         CHECK_NE(frac1, frac2);
         CHECK_NE(frac1, frac3);
     }
@@ -283,7 +282,7 @@ TEST_SUITE("Overloaded + and - operator tests") {
         CHECK_EQ(Fraction{1, 4} + 0.75, Fraction{5, 5});
 
         // Adding a fraction to a complex floating-point number
-        CHECK_EQ(Fraction{1, 3} + 4.321, 4.654);
+        CHECK_EQ(Fraction{1, 3} + 4.321, Fraction{13963, 3000});
         CHECK_EQ(Fraction{2, 5} + 3.678, Fraction{2039, 500});
 
         // Subtracting a simple floating-point number from a fraction
@@ -299,7 +298,7 @@ TEST_SUITE("Overloaded + and - operator tests") {
         CHECK_EQ(1.0 - Fraction{1, 4}, Fraction{3, 4});
 
         // Subtracting a fraction from a complex floating-point number
-        CHECK_EQ(5.321 - Fraction{2, 3}, Fraction{2327, 500});
+        CHECK_EQ(5.321 - Fraction{2, 3}, Fraction{13963, 3000});
         CHECK_EQ(3.678 - Fraction{3, 4}, Fraction{366, 125});
 
         // Adding a simple floating-point number to a fraction (simple)
@@ -307,7 +306,7 @@ TEST_SUITE("Overloaded + and - operator tests") {
         CHECK_EQ(0.75 + Fraction{1, 5}, Fraction{19, 20});
 
         // Adding a complex floating-point number to a fraction
-        CHECK_EQ(4.321 + Fraction{1, 3}, Fraction{2327, 500});
+        CHECK_EQ(4.321 + Fraction{1, 3},  Fraction{13963, 3000});
         CHECK_EQ(3.678 + Fraction{2, 5}, Fraction{2039, 500});
     }
 
@@ -383,7 +382,6 @@ TEST_SUITE("Overloaded * operator tests") {
         CHECK_EQ(0.5 * Fraction{2, 3}, Fraction{1, 3});
 
         //From right
-
         CHECK_EQ(Fraction{3, 4} * 0.8, Fraction{3, 5});
         CHECK_EQ(0.8 * Fraction{3, 4}, Fraction{3, 5});
 
@@ -394,7 +392,7 @@ TEST_SUITE("Overloaded * operator tests") {
 
     TEST_CASE("Multiplying big fractions") {
         CHECK_EQ(Fraction{999, 1000} * Fraction{999, 1000}, Fraction{998001, 1000000});
-        CHECK_EQ(Fraction{12345, 23456} * Fraction{34567, 45678}, Fraction{426920715, 1072143816});
+        CHECK_EQ(Fraction{12345, 23456} * Fraction{34567, 45678}, Fraction{426729615, 1071423168});
     }
 
     TEST_CASE("Inequality checks with floating-point numbers and fractions") {
@@ -673,19 +671,15 @@ TEST_SUITE("Input and output operators tests") {
     }
 
     TEST_CASE("Chaining input and output operators") {
-
         std::stringstream ss_in("1 2 3 -4");
         Fraction frac1, frac2;
         ss_in >> frac1 >> frac2;
-
         CHECK_EQ(frac1, Fraction{1, 2});
-
         CHECK_EQ(frac2, Fraction{3, -4});
 
         std::stringstream ss_out;
         ss_out << frac1 << " and " << frac2;
         CHECK(ss_out.str() == "1/2 and -3/4");
-
     }
 
     TEST_CASE(">> operator with zero denominator") {
@@ -736,6 +730,7 @@ TEST_CASE("Fraction with largest possible numerator and/or denominator and overf
 
     // Test arithmetic with large numerator and/or denominator
     Fraction f4(max_int - 100, max_int);
+
     CHECK_THROWS_AS(f1 * f4, std::overflow_error);
     CHECK_THROWS_AS(f1 / f4, std::overflow_error);
 

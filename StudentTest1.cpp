@@ -39,7 +39,8 @@ TEST_CASE("Fraction addition test") {
     CHECK(((f.getNumerator() == 3) && (f.getDenominator() == 5)));
     CHECK(__gcd(f.getNumerator(), f.getDenominator()) == 1);
 
-    Fraction g = e + d; //2/5 + 1/5
+
+    Fraction g = e + d;
     CHECK(((g.getNumerator() == 3) && (g.getDenominator() == 5)));
     CHECK(__gcd(g.getNumerator(), g.getDenominator()) == 1);
 }
@@ -228,19 +229,17 @@ TEST_CASE("Output and Input Stream Operators") {
     CHECK_NOTHROW(is >> b);
     CHECK(b.getNumerator() == 5);
     CHECK(b.getDenominator() == 6);
-    CHECK_THROWS(bad_is >> b); // Throws cause the input is one number
+    CHECK_THROWS(bad_is >> b); // Throws cuz the input is one number
 }
 
 TEST_CASE("Rounding of float numbers during arithmetic operations with Fractions") {
     Fraction a(2, 5);
     float b = 0.2001; // During the "+" operation it'll became 0.200, which is 1/5
-
     Fraction c = a + b; // 2/5 + 1/5 = 3/5
     CHECK(((c.getNumerator() == 3) && (c.getDenominator() == 5)));
-    
+
     b = 0.2001;
     c = a - b; // 1/5
-
     CHECK(((c.getNumerator() == 1) && (c.getDenominator() == 5)));
 
     b = 0.2001;
@@ -250,6 +249,4 @@ TEST_CASE("Rounding of float numbers during arithmetic operations with Fractions
     b = 0.2001;
     c = a / b; // 2/1
     CHECK(((c.getNumerator() == 2) && (c.getDenominator() == 1)));
-
-
 }
